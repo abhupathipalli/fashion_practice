@@ -119,6 +119,23 @@ view: order_items {
     sql: ${sales_count} ;;
   }
 
+  measure: total_gross_revenue {
+    type: sum
+    filters: [status: "Complete"]
+    sql: ${sale_price} ;;
+  }
+
+  measure: completed_orders_cost {
+    type: sum
+    filters: [status: "Complete"]
+    sql: ${inventory_items.cost} ;;
+  }
+
+  measure: total_gross_margin {
+    type: number
+    sql: ${total_gross_revenue} - ${completed_orders_cost} ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
